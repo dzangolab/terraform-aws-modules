@@ -1,25 +1,28 @@
 variable "aws_profile" {
   description = "AWS profile name used to create secret"
-  default = "dzangolab"
+  default     = "dzangolab"
+  type        = "string"
 }
 
 variable "aws_region" {
   description = "AWS region on which secret is created"
-  default = "ap-southeast-1"
+  default     = "ap-southeast-1"
+  type        = "string"
 }
 
 variable "policy_name" {
   description = "Name of policy to be seen on console"
-  type = "string"
+  type        = "string"
 }
 
-variable "secret_arn" {
-  description = "ARN of secret to apply policy to"
-  type = "string"
+variable "secret_arns" {
+  description = "ARNs of secrets to add to the policy"
+  default     = []
+  type        = "list"
 }
 
-variable "username" {
-  description = "Name of users to attach policy to"
-  default = ["semanta", "roshan", "uddhab"]
-  type = "list"
+variable "users" {
+  description = "Users to attach policy to"
+  default     = []
+  type        = "list"
 }

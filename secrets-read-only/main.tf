@@ -1,37 +1,49 @@
+terraform {
+  required_version = ">= 0.12"
+  required_providers {
+    aws = ">= 2.7.0"
+  }
+}
+
 provider "aws" {
   region     = "${var.aws_region}"
   profile    = "${var.aws_profile}"
-  version    = "~> 1.33"
-}
-
-data "aws_iam_policy_document" "readonly_secret_policy_doc" {
-  statement {
-    sid = "readonlysecretpolicy"
-
-    effect = "Allow"
-
-    actions = [
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecretVersionIds",
-    ]
-
-    resources = [
-      "${var.secret_arn}"
-    ]
-  }
 }
 
 resource "aws_iam_policy" "readonly_secret_policy" {
   name   = "${var.policy_name}"
-  policy = "${data.aws_iam_policy_document.readonly_secret_policy_doc.json}"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetResourcePolicy",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:ListSecretVersionIds"
+            ],
+            "Resource": [
+              "${join(",\n", var.secret_arns)}"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": "secretsmanager:GetRandomPassword",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
 }
 
 resource "aws_iam_user_policy_attachment" "secret_policy_attach" {
-  count = "${length(var.username)}"
+  count = "${length(var.users)}"
 
-  user = "${element(var.username, count.index)}"
+  user = "${element(var.users, count.index)}"
 
   policy_arn = "${aws_iam_policy.readonly_secret_policy.arn}"
 }
