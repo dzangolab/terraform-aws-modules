@@ -1,0 +1,52 @@
+terraform {
+  required_version = ">= 0.12"
+  required_providers {
+    aws = ">= 2.7.0"
+  }
+}
+
+provider "aws" {
+  region     = "${var.aws_region}"
+  profile    = "${var.aws_profile}"
+}
+
+resource "aws_iam_policy" "s3_bucket_policy" {
+  name   = "${var.policy_name}"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "S3Bucket0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+              "${join(",\n", var.bucket_arns)}"
+            ]
+        },
+        {
+            "Sid": "S3Bucket1",
+            "Effect": "Allow",
+            "Action": [
+              "s3:PutObject",
+              "s3:GetObject",
+              "s3:DeleteObject"
+            ],
+            "Resource": [
+              "${join(",\n", formatlist("%s/*", var.bucket_arns))}"
+            ]
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_user_policy_attachment" "s3_bucket_policy_attachment" {
+  count = "${length(var.users)}"
+
+  user = "${element(var.users, count.index)}"
+
+  policy_arn = "${aws_iam_policy.s3_bucket_policy.arn}"
+}
