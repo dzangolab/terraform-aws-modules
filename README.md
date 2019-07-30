@@ -2,6 +2,10 @@
 
 [Terraform modules](https://www.terraform.io/docs/modules/index.html) to provision AWS resources.
 
+## Requirements
+
+- [Terraform](https://www.terraform.io) >= v0.12.0
+
 ## Using module
 
 Every Terraform configuration has at least one module, known as its root module, which consists of the resources defined in the .tf files in the main working directory.
@@ -12,8 +16,8 @@ A terraform module can be used as a child module in your root module file as fol
 module "arbritray_name_to_refer_child_module" {
   source = "remote_or_local_path_to_module"
 
-  input_variable_of_module1 = "value1"
-  input_variable_of_module2 = "value2"
+  input_variable1_of_module = "value1"
+  input_variable2_of_module = "value2"
 }
 ```
 
