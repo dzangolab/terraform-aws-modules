@@ -1,41 +1,38 @@
-# terraform-iam-policies
+# terraform-aws-modules
 
-It contains terraform plan to apply certain IAM policies to multiple IAM users at once.
+[Terraform modules](https://www.terraform.io/docs/modules/index.html) to provision AWS resources.
 
-## Running terraform plan
+## Using module
 
-### Initialize terraform
+Every Terraform configuration has at least one module, known as its root module, which consists of the resources defined in the .tf files in the main working directory.
 
-Change working directory based on which policy you want to apply.
+A terraform module can be used as a child module in your root module file as follows:
 
-```sh
-cd directory-of-your-policy
-terraform init
+```hcl
+module "arbritray_name_to_refer_child_module" {
+  source = "remote_or_local_path_to_module"
+
+  input_variable_of_module1 = "value1"
+  input_variable_of_module2 = "value2"
+}
 ```
 
-### Set values of input variables declared on `vars.tf` file
+For example to use `secrets-readonly` module,
 
-Refer `skeleton-develop.tfvars.example` and make similar `.tfvars` file, name it based on  your secret name. Refer `vars.tf` and update required input variables.
+```hcl
+module "myproject_secret_ro_policy" {
+  source = "git::ssh://git@gitlab.united-asian.com/devops/terraform-aws-modules.git//secrets-readonly?ref=1.0"
 
-```sh
-cp skeleton-develop.tfvars.example appname-env.tfvars
-vi appname-env.tfvars
+  aws_profile = "dzangolab"
+  aws_region  = "ap-southeast-1"
+  policy_name = "myproject-develop-secrets"
+  secret_arns = [
+    "arn:aws:secretsmanager:ap-southeast-..."
+  ]
+  users       = [ "dzangolab-develop", "developer1", "developer2" ]
+}
 ```
 
-### Apply terraform plan(IAM policy)
+## Adding another module
 
-```sh
-terraform apply -var-file=appname-env.tfvars
-```
-
-### Destroy/undo terraform plan(IAM policy)
-
-```sh
-terraform destroy -var-file=appname-env.tfvars
-```
-
-### Validate terraform files(syntax check)
-
-```sh
-terraform validate -var-file=appname-env.tfvars
-```
+Refer to [this guide](https://www.terraform.io/docs/modules/index.html) to know how modules are created.
