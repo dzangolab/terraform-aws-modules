@@ -1,6 +1,7 @@
 provider "aws" {
   region  = var.aws_region
   profile = var.aws_profile
+  version = "~> 2.16"
 }
 
 resource "aws_iam_policy" "s3_bucket_policy" {
