@@ -1,17 +1,11 @@
-terraform {
-  required_version = ">= 0.12"
-  required_providers {
-    aws = ">= 2.7.0"
-  }
-}
-
 provider "aws" {
-  region     = "${var.aws_region}"
-  profile    = "${var.aws_profile}"
+  region  = var.aws_region
+  profile = var.aws_profile
+  version = "~> 2.16"
 }
 
 resource "aws_iam_policy" "s3_bucket_policy" {
-  name   = "${var.policy_name}"
+  name   = var.policy_name
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -44,9 +38,9 @@ EOF
 }
 
 resource "aws_iam_user_policy_attachment" "s3_bucket_policy_attachment" {
-  count = "${length(var.users)}"
+  count = length(var.users)
 
-  user = "${element(var.users, count.index)}"
+  user = element(var.users, count.index)
 
-  policy_arn = "${aws_iam_policy.s3_bucket_policy.arn}"
+  policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
