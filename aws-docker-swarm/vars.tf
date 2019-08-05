@@ -1,6 +1,15 @@
 //-------------------------------------------------------------------
 // General settings
 //-------------------------------------------------------------------
+
+variable "aws_profile" {
+  default = "dzangolab"
+}
+
+variable "aws_region" {
+  default = "ap-southeast-1"
+}
+
 variable "env" {
   default = "sandbox"
 }

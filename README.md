@@ -10,6 +10,16 @@
 
 Every Terraform configuration has at least one module, known as its root module, which consists of the resources defined in the .tf files in the main working directory.
 
+Add provider configuration in the root module as follows:
+
+```hcl
+provider "aws" {
+  profile = "dzangolab"
+  region  = "ap-southeast-1"
+  version = "~> 2.16"
+}
+```
+
 A terraform module can be used as a child module in your root module file as follows:
 
 ```hcl
@@ -27,8 +37,6 @@ For example to use `secrets-readonly` module,
 module "myproject_secret_ro_policy" {
   source = "git::ssh://git@gitlab.united-asian.com/devops/terraform-aws-modules.git//secrets-readonly?ref=1.0"
 
-  aws_profile = "dzangolab"
-  aws_region  = "ap-southeast-1"
   policy_name = "myproject-develop-secrets"
   secret_arns = [
     "arn:aws:secretsmanager:ap-southeast-..."
