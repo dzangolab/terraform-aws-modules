@@ -3,12 +3,6 @@ terraform {
   }
 }
 
-provider "aws" {
-  region  = var.aws_region
-  profile = var.aws_profile
-  version = "~> 2.16"
-}
-
 resource "aws_key_pair" "default" {
   key_name   = var.key_pair_name
   public_key = file(var.key_path)
