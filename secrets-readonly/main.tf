@@ -35,3 +35,11 @@ resource "aws_iam_user_policy_attachment" "secret_policy_attach" {
 
   policy_arn = aws_iam_policy.readonly_secret_policy.arn
 }
+
+resource "aws_iam_group_policy_attachment" "secret_policy_attach_group" {
+  count = length(var.groups)
+
+  group = element(var.groups, count.index)
+
+  policy_arn = aws_iam_policy.readonly_secret_policy.arn
+}
