@@ -1,4 +1,5 @@
-# test file to run `terraform validate` command
+# test terraform plan to validate terraform syntax in gitlab ci
+
 provider "aws" {
   profile = "dzangolab"
   region  = "ap-southeast-1"
