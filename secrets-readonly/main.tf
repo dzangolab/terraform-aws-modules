@@ -28,7 +28,7 @@ resource "aws_iam_policy" "readonly_secret_policy" {
 EOF
 }
 
-resource "aws_iam_group_policy_attachment" "secret_policy_attach_group" {
+resource "aws_iam_group_policy_attachment" "group_attachment" {
   count = length(var.groups)
 
   group = element(var.groups, count.index)
@@ -36,7 +36,7 @@ resource "aws_iam_group_policy_attachment" "secret_policy_attach_group" {
   policy_arn = aws_iam_policy.readonly_secret_policy.arn
 }
 
-resource "aws_iam_user_policy_attachment" "secret_policy_attach" {
+resource "aws_iam_user_policy_attachment" "user_attachment" {
   count = length(var.users)
 
   user = element(var.users, count.index)
