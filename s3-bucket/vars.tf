@@ -1,6 +1,6 @@
 variable "groups" {
   default     = []
-  description = "Groups to attch policy to"
+  description = "Groups to attach policy to"
   type        = list(string)
 }
 
