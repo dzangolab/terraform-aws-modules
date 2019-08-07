@@ -13,7 +13,10 @@ resource "aws_iam_policy" "readwrite_secret_policy" {
                 "secretsmanager:DescribeSecret",
                 "secretsmanager:RestoreSecret",
                 "secretsmanager:PutSecretValue",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:RotateSecret",
                 "secretsmanager:UpdateSecretVersionStage",
+                "secretsmanager:CancelRotateSecret",
                 "secretsmanager:ListSecretVersionIds",
                 "secretsmanager:UpdateSecret"
             ],
