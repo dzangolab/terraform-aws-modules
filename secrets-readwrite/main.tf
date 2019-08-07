@@ -1,4 +1,4 @@
-resource "aws_iam_policy" "readonly_secret_policy" {
+resource "aws_iam_policy" "readwrite_secret_policy" {
   name   = var.policy_name
   policy = <<EOF
 {
@@ -11,7 +11,14 @@ resource "aws_iam_policy" "readonly_secret_policy" {
                 "secretsmanager:GetResourcePolicy",
                 "secretsmanager:GetSecretValue",
                 "secretsmanager:DescribeSecret",
-                "secretsmanager:ListSecretVersionIds"
+                "secretsmanager:RestoreSecret",
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:RotateSecret",
+                "secretsmanager:UpdateSecretVersionStage",
+                "secretsmanager:CancelRotateSecret",
+                "secretsmanager:ListSecretVersionIds",
+                "secretsmanager:UpdateSecret"
             ],
             "Resource": [
               "${join(",\n", var.secret_arns)}"
@@ -33,7 +40,7 @@ resource "aws_iam_group_policy_attachment" "group_attachment" {
 
   group = element(var.groups, count.index)
 
-  policy_arn = aws_iam_policy.readonly_secret_policy.arn
+  policy_arn = aws_iam_policy.readwrite_secret_policy.arn
 }
 
 resource "aws_iam_user_policy_attachment" "user_attachment" {
@@ -41,5 +48,5 @@ resource "aws_iam_user_policy_attachment" "user_attachment" {
 
   user = element(var.users, count.index)
 
-  policy_arn = aws_iam_policy.readonly_secret_policy.arn
+  policy_arn = aws_iam_policy.readwrite_secret_policy.arn
 }

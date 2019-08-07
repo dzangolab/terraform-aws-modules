@@ -1,6 +1,6 @@
-# Terraform plan for AWS secrets with read-only policy
+# Terraform plan for AWS secrets with read-write policy
 
-This terraform module helps to apply read-only IAM policy to secrets created on AWS Secrets Manager for certain AWS users or groups.
+This terraform module helps to apply read-write IAM policy to secrets created on AWS Secrets Manager for certain AWS users or groups.
 
 Refer `vars.tf` variable file for available input options and default values.
 

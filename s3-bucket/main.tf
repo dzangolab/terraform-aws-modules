@@ -31,7 +31,7 @@ resource "aws_iam_policy" "s3_bucket_policy" {
 EOF
 }
 
-resource "aws_iam_group_policy_attachment" "s3_bucket_policy_group_attachment" {
+resource "aws_iam_group_policy_attachment" "group_attachment" {
   count = length(var.groups)
 
   group = element(var.groups, count.index)
@@ -39,7 +39,7 @@ resource "aws_iam_group_policy_attachment" "s3_bucket_policy_group_attachment" {
   policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
 
-resource "aws_iam_user_policy_attachment" "s3_bucket_policy_attachment" {
+resource "aws_iam_user_policy_attachment" "user_attachment" {
   count = length(var.users)
 
   user = element(var.users, count.index)
