@@ -1,12 +1,12 @@
-variable "groups" {
-  default     = []
-  description = "Groups to attach policy to"
-  type        = list(string)
-}
-
 variable "bucket_arns" {
   default     = []
   description = "ARNs of secrets to add to the policy"
+  type        = list(string)
+}
+
+variable "groups" {
+  default     = []
+  description = "Groups to attach policy to"
   type        = list(string)
 }
 
