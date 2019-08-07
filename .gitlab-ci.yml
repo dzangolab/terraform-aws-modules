@@ -1,0 +1,14 @@
+stages:
+  - validate
+
+validate:
+  stage: validate
+  script:
+    - docker pull hashicorp/terraform:light
+    - docker run hashicorp/terraform:light --version
+    - docker run -u 1001 -v $(pwd):/src -w="/src" hashicorp/terraform:light init --backend=false
+    - docker run -u 1001 -v $(pwd):/src -w="/src" hashicorp/terraform:light validate
+  after_script:
+    - rm -rf .terraform
+  tags:
+    - builder2
