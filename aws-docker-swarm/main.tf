@@ -196,6 +196,7 @@ data "template_file" "ansible_inventory" {
     env      = var.env
     managers = join("\n", local.manager_public_ip_list)
     workers  = join("\n", aws_instance.worker.*.public_ip)
+    manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
   # managers = "${join("\n", "${var.eip_allocation_id == "null" ? aws_instance.manager.*.public_ip : local.manager_public_ip_list}")}"
   # Conditional operator on list  will be supported on Terraform 0.12. See issue https://github.com/hashicorp/terraform/issues/18259#issuecomment-434809754
@@ -205,6 +206,7 @@ resource "null_resource" "ansible_inventory_file" {
   triggers = {
     managers = join("\n", aws_instance.manager.*.public_ip)
     workers  = join("\n", aws_instance.worker.*.public_ip)
+    manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
 
   provisioner "local-exec" {
