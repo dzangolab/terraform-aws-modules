@@ -77,6 +77,7 @@ resource "aws_ebs_volume" "ebs_volume" {
 resource "aws_volume_attachment" "ebs_attachment" {
   count = var.enable_gluster ? var.swarm_manager_count : 0
   device_name = "/dev/xvdf"
+  force_detach = true
   instance_id = element(aws_instance.manager.*.id, count.index)
   volume_id = element(aws_ebs_volume.ebs_volume.*.id, count.index)
 }
