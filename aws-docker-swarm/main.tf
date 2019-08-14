@@ -68,6 +68,19 @@ resource "aws_route_table_association" "route" {
   route_table_id = aws_route_table.public_route_table.id
 }
 
+resource "aws_ebs_volume" "ebs_volume" {
+  availability_zone = "ap-southeast-1c"
+  count = var.enable_gluster ? var.swarm_manager_count : 0
+  size = 1
+}
+
+resource "aws_volume_attachment" "ebs_attachment" {
+  count = var.enable_gluster ? var.swarm_manager_count : 0
+  device_name = "/dev/xvdf"
+  instance_id = element(aws_instance.manager.*.id, count.index)
+  volume_id = element(aws_ebs_volume.ebs_volume.*.id, count.index)
+}
+
 resource "aws_instance" "manager" {
   ami                         = var.ami
   count                       = var.swarm_manager_count
