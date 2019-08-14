@@ -69,7 +69,7 @@ resource "aws_route_table_association" "route" {
 }
 
 resource "aws_ebs_volume" "ebs_volume" {
-  availability_zone = "ap-southeast-1c"
+  availability_zone = aws_instance.manager[0].availability_zone
   count = var.enable_gluster ? var.swarm_manager_count : 0
   size = 1
 }
