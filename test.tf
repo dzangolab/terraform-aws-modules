@@ -9,10 +9,10 @@ provider "aws" {
 module "test_aws_docker_swarm" {
   source = "./aws-docker-swarm"
 
-  eip_address = ""
+  eip_address       = ""
   eip_allocation_id = ""
-  key_pair_name = ""
-  swarm_name = ""
+  key_pair_name     = ""
+  swarm_name        = ""
 }
 
 module "test_s3_bucket" {
@@ -23,7 +23,7 @@ module "test_s3_bucket" {
 
 module "test_secrets_readonly" {
   source = "./secrets-readonly"
-  
+
   policy_name = "test-secrets-readonly"
 }
 

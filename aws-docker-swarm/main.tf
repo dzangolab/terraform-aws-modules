@@ -4,7 +4,7 @@ terraform {
 }
 
 locals {
-  security_groups = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  security_groups              = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
   security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster[0].id]
 }
 
@@ -75,16 +75,16 @@ resource "aws_route_table_association" "route" {
 
 resource "aws_ebs_volume" "ebs_volume" {
   availability_zone = aws_instance.manager[0].availability_zone
-  count = var.enable_gluster ? var.swarm_manager_count : 0
-  size = 1
+  count             = var.enable_gluster ? var.swarm_manager_count : 0
+  size              = 1
 }
 
 resource "aws_volume_attachment" "ebs_attachment" {
-  count = var.enable_gluster ? var.swarm_manager_count : 0
-  device_name = "/dev/xvdf"
+  count        = var.enable_gluster ? var.swarm_manager_count : 0
+  device_name  = "/dev/xvdf"
   force_detach = true
-  instance_id = element(aws_instance.manager.*.id, count.index)
-  volume_id = element(aws_ebs_volume.ebs_volume.*.id, count.index)
+  instance_id  = element(aws_instance.manager.*.id, count.index)
+  volume_id    = element(aws_ebs_volume.ebs_volume.*.id, count.index)
 }
 
 resource "aws_instance" "manager" {
@@ -199,9 +199,9 @@ data "template_file" "ansible_inventory" {
   template = file("${path.module}/ansible_inventory.tpl")
 
   vars = {
-    env      = var.env
-    managers = join("\n", local.manager_public_ip_list)
-    workers  = join("\n", aws_instance.worker.*.public_ip)
+    env                 = var.env
+    managers            = join("\n", local.manager_public_ip_list)
+    workers             = join("\n", aws_instance.worker.*.public_ip)
     manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
   # managers = "${join("\n", "${var.eip_allocation_id == "null" ? aws_instance.manager.*.public_ip : local.manager_public_ip_list}")}"
@@ -210,8 +210,8 @@ data "template_file" "ansible_inventory" {
 
 resource "null_resource" "ansible_inventory_file" {
   triggers = {
-    managers = join("\n", aws_instance.manager.*.public_ip)
-    workers  = join("\n", aws_instance.worker.*.public_ip)
+    managers            = join("\n", aws_instance.manager.*.public_ip)
+    workers             = join("\n", aws_instance.worker.*.public_ip)
     manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
 
