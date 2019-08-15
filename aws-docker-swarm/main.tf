@@ -5,7 +5,7 @@ terraform {
 
 locals {
   security_groups = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
-  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster.id]
+  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster[0].id]
 }
 
 resource "aws_key_pair" "default" {
