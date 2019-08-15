@@ -1,4 +1,5 @@
 resource "aws_security_group" "aws-gluster" {
+  count  = var.enable_gluster ? 1 : 0
   name   = "${var.swarm_name}-gluster-security-group"
   vpc_id = aws_vpc.main.id
 
