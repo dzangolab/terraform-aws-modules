@@ -3,6 +3,11 @@ terraform {
   }
 }
 
+locals {
+  security_groups = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster.id]
+}
+
 resource "aws_key_pair" "default" {
   key_name   = var.key_pair_name
   public_key = file(var.key_path)
@@ -89,7 +94,7 @@ resource "aws_instance" "manager" {
   key_name                    = aws_key_pair.default.id
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster.id]
+  vpc_security_group_ids      = var.enable_gluster ? local.security_groups_with_gluster : local.security_groups
 
   tags = {
     Name = format(
