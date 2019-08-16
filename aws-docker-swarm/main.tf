@@ -3,6 +3,11 @@ terraform {
   }
 }
 
+locals {
+  security_groups              = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster[0].id]
+}
+
 resource "aws_key_pair" "default" {
   key_name   = var.key_pair_name
   public_key = file(var.key_path)
@@ -68,6 +73,20 @@ resource "aws_route_table_association" "route" {
   route_table_id = aws_route_table.public_route_table.id
 }
 
+resource "aws_ebs_volume" "ebs_volume" {
+  availability_zone = aws_instance.manager[0].availability_zone
+  count             = var.enable_gluster ? var.swarm_manager_count : 0
+  size              = 1
+}
+
+resource "aws_volume_attachment" "ebs_attachment" {
+  count        = var.enable_gluster ? var.swarm_manager_count : 0
+  device_name  = "/dev/xvdf"
+  force_detach = true
+  instance_id  = element(aws_instance.manager.*.id, count.index)
+  volume_id    = element(aws_ebs_volume.ebs_volume.*.id, count.index)
+}
+
 resource "aws_instance" "manager" {
   ami                         = var.ami
   count                       = var.swarm_manager_count
@@ -75,7 +94,7 @@ resource "aws_instance" "manager" {
   key_name                    = aws_key_pair.default.id
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  vpc_security_group_ids      = var.enable_gluster ? local.security_groups_with_gluster : local.security_groups
 
   tags = {
     Name = format(
@@ -180,9 +199,10 @@ data "template_file" "ansible_inventory" {
   template = file("${path.module}/ansible_inventory.tpl")
 
   vars = {
-    env      = var.env
-    managers = join("\n", local.manager_public_ip_list)
-    workers  = join("\n", aws_instance.worker.*.public_ip)
+    env                 = var.env
+    managers            = join("\n", local.manager_public_ip_list)
+    workers             = join("\n", aws_instance.worker.*.public_ip)
+    manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
   # managers = "${join("\n", "${var.eip_allocation_id == "null" ? aws_instance.manager.*.public_ip : local.manager_public_ip_list}")}"
   # Conditional operator on list  will be supported on Terraform 0.12. See issue https://github.com/hashicorp/terraform/issues/18259#issuecomment-434809754
@@ -190,8 +210,9 @@ data "template_file" "ansible_inventory" {
 
 resource "null_resource" "ansible_inventory_file" {
   triggers = {
-    managers = join("\n", aws_instance.manager.*.public_ip)
-    workers  = join("\n", aws_instance.worker.*.public_ip)
+    managers            = join("\n", aws_instance.manager.*.public_ip)
+    workers             = join("\n", aws_instance.worker.*.public_ip)
+    manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
   }
 
   provisioner "local-exec" {

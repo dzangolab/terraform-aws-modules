@@ -99,3 +99,14 @@ variable "worker_instance_type" {
   default = "t2.micro"
 }
 
+//-------------------------------------------------------------------
+// Gluster settings
+//-------------------------------------------------------------------
+
+variable "enable_gluster" {
+  default = false
+}
+
+variable "gluster_volume_size" {
+  default = 1
+}
