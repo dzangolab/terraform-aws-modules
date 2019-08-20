@@ -87,6 +87,20 @@ resource "aws_volume_attachment" "ebs_attachment" {
   volume_id    = element(aws_ebs_volume.ebs_volume.*.id, count.index)
 }
 
+resource "aws_efs_file_system" "efs" {
+  creation_token = var.swarm_name
+
+  tags = {
+    Name = var.swarm_name
+  }
+}
+
+resource "aws_efs_mount_target" "efs-mount" {
+  file_system_id  = aws_efs_file_system.efs.id
+  subnet_id       = aws_subnet.main.id
+  security_groups = [aws_security_group.efs.id]
+}
+
 resource "aws_instance" "manager" {
   ami                         = var.ami
   count                       = var.swarm_manager_count
