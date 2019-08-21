@@ -3,6 +3,11 @@ output "ansible_inventory" {
   value       = data.template_file.ansible_inventory.rendered
 }
 
+output "efs-mount-target-dns" {
+  description = "Address of the efs mount target provisioned."
+  value       = aws_efs_mount_target.main.dns_name
+}
+
 output "swarm_manager_ips" {
   description = "The manager nodes public ipv4 adresses"
 
@@ -24,4 +29,3 @@ output "swarm_worker_ips_private" {
   description = "The worker nodes private ipv4 adresses"
   value       = [aws_instance.worker.*.private_ip]
 }
-

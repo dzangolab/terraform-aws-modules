@@ -4,8 +4,8 @@ terraform {
 }
 
 locals {
-  security_groups              = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
-  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster[0].id]
+  security_groups              = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.efs.id]
+  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.efs.id, aws_security_group.aws-gluster[0].id]
 }
 
 resource "aws_key_pair" "default" {
@@ -14,7 +14,10 @@ resource "aws_key_pair" "default" {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   tags = {
     Name = "${var.swarm_name}-vpc"
   }
@@ -87,7 +90,7 @@ resource "aws_volume_attachment" "ebs_attachment" {
   volume_id    = element(aws_ebs_volume.ebs_volume.*.id, count.index)
 }
 
-resource "aws_efs_file_system" "efs" {
+resource "aws_efs_file_system" "main" {
   creation_token = var.swarm_name
 
   tags = {
@@ -95,8 +98,8 @@ resource "aws_efs_file_system" "efs" {
   }
 }
 
-resource "aws_efs_mount_target" "efs-mount" {
-  file_system_id  = aws_efs_file_system.efs.id
+resource "aws_efs_mount_target" "main" {
+  file_system_id  = aws_efs_file_system.main.id
   subnet_id       = aws_subnet.main.id
   security_groups = [aws_security_group.efs.id]
 }
@@ -213,10 +216,11 @@ data "template_file" "ansible_inventory" {
   template = file("${path.module}/ansible_inventory.tpl")
 
   vars = {
-    env                 = var.env
-    managers            = join("\n", local.manager_public_ip_list)
-    workers             = join("\n", aws_instance.worker.*.public_ip)
-    manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
+    env                  = var.env
+    managers             = join("\n", local.manager_public_ip_list)
+    workers              = join("\n", aws_instance.worker.*.public_ip)
+    manager_private_ips  = join("\n", aws_instance.manager.*.private_ip)
+    efs_mount_traget_dns = aws_efs_mount_target.main.dns_name
   }
   # managers = "${join("\n", "${var.eip_allocation_id == "null" ? aws_instance.manager.*.public_ip : local.manager_public_ip_list}")}"
   # Conditional operator on list  will be supported on Terraform 0.12. See issue https://github.com/hashicorp/terraform/issues/18259#issuecomment-434809754
