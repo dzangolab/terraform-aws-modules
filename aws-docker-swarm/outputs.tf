@@ -3,7 +3,7 @@ output "ansible_inventory" {
   value       = data.template_file.ansible_inventory.rendered
 }
 
-output "efs-mount-target-dns" {
+output "efs-dns-name" {
   description = "Address of the efs mount target provisioned."
   value       = aws_efs_mount_target.main[0].dns_name
 }
