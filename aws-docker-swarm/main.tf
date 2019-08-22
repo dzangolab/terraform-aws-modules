@@ -150,7 +150,7 @@ resource "aws_instance" "worker" {
   key_name                    = aws_key_pair.default.id
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = local.default_sg
+  vpc_security_group_ids      = local.security_groups
 
   tags = {
     Name = format(
