@@ -1,3 +1,5 @@
+efs dns_name=${efs_dns_name}
+
 [docker_swarm_manager]
 ${managers}
 
@@ -6,9 +8,6 @@ ${workers}
 
 [docker_swarm_manager_private_ip]
 ${manager_private_ips}
-
-[efs_dns_name]
-${efs_dns_name}
 
 [${env}:children]
 docker_swarm_manager
