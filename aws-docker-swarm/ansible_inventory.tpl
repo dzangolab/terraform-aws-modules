@@ -8,7 +8,7 @@ ${workers}
 ${manager_private_ips}
 
 [efs-mount-target-dns]
-${efs_mount_traget_dns}
+${efs_mount_target_dns}
 
 [${env}:children]
 docker_swarm_manager
