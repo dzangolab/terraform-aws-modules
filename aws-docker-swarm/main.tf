@@ -4,8 +4,10 @@ terraform {
 }
 
 locals {
-  security_groups              = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
-  security_groups_with_gluster = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id, aws_security_group.aws-gluster[0].id]
+  default_sg      = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  gluster_sg      = var.enable_gluster ? [aws_security_group.aws-gluster[0].id] : []
+  efs_sg          = var.enable_efs ? [aws_security_group.efs[0].id] : []
+  security_groups = concat(local.default_sg, local.gluster_sg, local.efs_sg)
 }
 
 resource "aws_key_pair" "default" {
@@ -14,7 +16,10 @@ resource "aws_key_pair" "default" {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   tags = {
     Name = "${var.swarm_name}-vpc"
   }
@@ -87,6 +92,22 @@ resource "aws_volume_attachment" "ebs_attachment" {
   volume_id    = element(aws_ebs_volume.ebs_volume.*.id, count.index)
 }
 
+resource "aws_efs_file_system" "main" {
+  count          = var.enable_efs ? 1 : 0
+  creation_token = var.swarm_name
+
+  tags = {
+    Name = var.swarm_name
+  }
+}
+
+resource "aws_efs_mount_target" "main" {
+  count           = var.enable_efs ? 1 : 0
+  file_system_id  = aws_efs_file_system.main[0].id
+  subnet_id       = aws_subnet.main.id
+  security_groups = [aws_security_group.efs[0].id]
+}
+
 resource "aws_instance" "manager" {
   ami                         = var.ami
   count                       = var.swarm_manager_count
@@ -94,7 +115,7 @@ resource "aws_instance" "manager" {
   key_name                    = aws_key_pair.default.id
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = var.enable_gluster ? local.security_groups_with_gluster : local.security_groups
+  vpc_security_group_ids      = local.security_groups
 
   tags = {
     Name = format(
@@ -129,7 +150,7 @@ resource "aws_instance" "worker" {
   key_name                    = aws_key_pair.default.id
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.aws-common.id, aws_security_group.aws-swarm.id]
+  vpc_security_group_ids      = local.security_groups
 
   tags = {
     Name = format(
@@ -203,6 +224,7 @@ data "template_file" "ansible_inventory" {
     managers            = join("\n", local.manager_public_ip_list)
     workers             = join("\n", aws_instance.worker.*.public_ip)
     manager_private_ips = join("\n", aws_instance.manager.*.private_ip)
+    efs_dns_name        = var.enable_efs ? aws_efs_mount_target.main[0].dns_name : ""
   }
   # managers = "${join("\n", "${var.eip_allocation_id == "null" ? aws_instance.manager.*.public_ip : local.manager_public_ip_list}")}"
   # Conditional operator on list  will be supported on Terraform 0.12. See issue https://github.com/hashicorp/terraform/issues/18259#issuecomment-434809754

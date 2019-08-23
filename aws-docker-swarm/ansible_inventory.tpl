@@ -1,3 +1,5 @@
+efs dns_name=${efs_dns_name}
+
 [docker_swarm_manager]
 ${managers}
 
