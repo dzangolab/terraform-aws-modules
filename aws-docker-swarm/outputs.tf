@@ -1,8 +1,3 @@
-output "ansible_inventory" {
-  description = "Ansible inventory"
-  value       = data.template_file.ansible_inventory.rendered
-}
-
 output "efs_dns_name" {
   description = "DNS name of the provisioned AWS EFS"
   value       = aws_efs_mount_target.main[0].dns_name
