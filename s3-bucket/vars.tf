@@ -1,6 +1,6 @@
 variable "bucket_arns" {
   default     = []
-  description = "ARNs of secrets to add to the policy"
+  description = "ARNs of buckets to add to the policy"
   type        = list(string)
 }
 
