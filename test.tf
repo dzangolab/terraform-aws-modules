@@ -21,14 +21,14 @@ module "test_s3_bucket" {
   policy_name = "test-s3-bucket"
 }
 
-module "test_secrets_readonly" {
-  source = "./secrets-readonly"
+module "test_secrets_ro_policy" {
+  source = "./secrets-readonly-policy"
 
   policy_name = "test-secrets-readonly"
 }
 
-module "test_secrets_readwrite" {
-  source = "./secrets-readwrite"
+module "test_secrets_rw_policy" {
+  source = "./secrets-readwrite-policy"
 
   policy_name = "test-secrets-readwrite"
 }
