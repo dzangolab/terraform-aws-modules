@@ -1,6 +1,6 @@
 # terraform-aws-modules
 
-[Terraform modules](https://www.terraform.io/docs/modules/index.html) to provision AWS resources.
+A collection of Terraform [modules](https://www.terraform.io/docs/modules/index.html) to provision AWS resources.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ provider "aws" {
 A terraform module can be used as a child module in your root module file as follows:
 
 ```hcl
-module "arbritray_name_to_refer_child_module" {
+module "arbritrary_name_to_refer_child_module" {
   source = "remote_or_local_path_to_module"
 
   input_variable1_of_module = "value1"
@@ -31,17 +31,15 @@ module "arbritray_name_to_refer_child_module" {
 }
 ```
 
-For example to use `secrets-readonly` module,
+For example to use `secrets-readonly-policy` module,
 
 ```hcl
-module "myproject_secret_ro_policy" {
-  source = "git::ssh://git@gitlab.united-asian.com/devops/terraform-aws-modules.git//secrets-readonly?ref=1.0"
+module "my_secrets_ro_policy" {
+  source = "git::ssh://git@gitlab.united-asian.com/devops/terraform-aws-modules.git//secrets-readonly-policy?ref=1.0"
 
-  policy_name = "myproject-develop-secrets"
-  secret_arns = [
-    "arn:aws:secretsmanager:ap-southeast-..."
-  ]
-  users       = [ "dzangolab-develop", "developer1", "developer2" ]
+  policy_name = "my-secrets"
+  secrets     = ["arn:aws:secretsmanager:ap-southeast-..."]
+  users       = [ "alice", "bob" ]
 }
 ```
 
