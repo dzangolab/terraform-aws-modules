@@ -1,8 +1,0 @@
-policy_name = "my-secret-ro"
-
-secrets = "arn:aws:secretsmanager:us-east-2:12345678901:secret:my-secret"
-
-users = [
-  "Alice",
-  "Bob"
-]
