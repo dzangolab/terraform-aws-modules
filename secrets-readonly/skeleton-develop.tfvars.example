@@ -1,9 +1,0 @@
-policy_name = "sandbox-develop-readonly"
-
-secret_arn = "arn:aws:secretsmanager:us-east-2:139549850843:secret:sandbox-develop-ba40hp"
-
-username = [
-  "roshan",
-  "semanta",
-  "uddhab"
-]

@@ -5,11 +5,11 @@ variable "groups" {
 }
 
 variable "policy_name" {
-  description = "Name of policy to be seen on console"
+  description = "Name of policy"
   type        = string
 }
 
-variable "secret_arns" {
+variable "secrets" {
   default     = []
   description = "ARNs of secrets to add to the policy"
   type        = list(string)

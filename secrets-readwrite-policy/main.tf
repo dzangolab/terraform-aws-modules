@@ -1,4 +1,4 @@
-resource "aws_iam_policy" "readwrite_secret_policy" {
+resource "aws_iam_policy" "secrets_readwrite_policy" {
   name   = var.policy_name
   policy = <<EOF
 {
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "readwrite_secret_policy" {
                 "secretsmanager:UpdateSecret"
             ],
             "Resource": [
-              "${join(",\n", var.secret_arns)}"
+              "${join(",\n", var.secrets)}"
             ]
         },
         {
@@ -40,7 +40,7 @@ resource "aws_iam_group_policy_attachment" "group_attachment" {
 
   group = element(var.groups, count.index)
 
-  policy_arn = aws_iam_policy.readwrite_secret_policy.arn
+  policy_arn = aws_iam_policy.secrets_readwrite_policy.arn
 }
 
 resource "aws_iam_user_policy_attachment" "user_attachment" {
@@ -48,5 +48,5 @@ resource "aws_iam_user_policy_attachment" "user_attachment" {
 
   user = element(var.users, count.index)
 
-  policy_arn = aws_iam_policy.readwrite_secret_policy.arn
+  policy_arn = aws_iam_policy.secrets_readwrite_policy.arn
 }
