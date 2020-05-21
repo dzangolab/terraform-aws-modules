@@ -50,3 +50,11 @@ resource "aws_iam_user_policy_attachment" "user_attachment" {
 
   policy_arn = aws_iam_policy.secrets_readwrite_policy.arn
 }
+
+resource "aws_iam_role_policy_attachment" "role_attachment" {
+  count = length(var.roles)
+
+  role       = element(var.roles, count.index)
+
+  policy_arn = aws_iam_policy.secrets_readwrite_policy.arn
+}

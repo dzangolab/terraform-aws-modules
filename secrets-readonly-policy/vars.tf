@@ -9,6 +9,12 @@ variable "policy_name" {
   type        = string
 }
 
+variable "roles" {
+  default     = []
+  description = "IAM roles to attach policy to"
+  type        = list(string)
+}
+
 variable "secrets" {
   default     = []
   description = "ARNs of secrets to add to the policy"
