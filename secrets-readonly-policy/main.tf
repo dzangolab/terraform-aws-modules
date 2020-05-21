@@ -1,31 +1,39 @@
+data "aws_iam_policy_document" "secrets_readonly" {
+  version = "2012-10-17"
+
+  statement {
+    sid = "SecretsReadonly1"
+
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecretVersionIds"
+    ]
+
+    resources = var.secrets
+  }
+
+  statement {
+    sid = "SecretsReadonly2"
+
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetRandomPassword",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+}
+
 resource "aws_iam_policy" "secrets_readonly_policy" {
   name   = var.policy_name
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "secretsmanager:GetResourcePolicy",
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:DescribeSecret",
-                "secretsmanager:ListSecretVersionIds"
-            ],
-            "Resource": [
-              "${join(",\n", var.secrets)}"
-            ]
-        },
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",
-            "Action": "secretsmanager:GetRandomPassword",
-            "Resource": "*"
-        }
-    ]
-}
-EOF
+  policy = data.aws_iam_policy_document.secrets_readonly.json
 }
 
 resource "aws_iam_group_policy_attachment" "group_attachment" {
