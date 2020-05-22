@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "terragrunt" {
 
     actions = [
       "dynamodb:PutItem",
-      "dynamodb:GetItem"
+      "dynamodb:GetItem",
       "dynamodb:DescribeTable",
       "dynamodb:DeleteItem",
       "dynamodb:CreateTable"
@@ -55,7 +55,7 @@ resource "aws_iam_group_policy_attachment" "group_attachment" {
 
   group = element(var.groups, count.index)
 
-  policy_arn = aws_iam_policy.s3_bucket_policy.arn
+  policy_arn = aws_iam_policy.terragrunt_policy.arn
 }
 
 resource "aws_iam_user_policy_attachment" "user_attachment" {
@@ -63,7 +63,7 @@ resource "aws_iam_user_policy_attachment" "user_attachment" {
 
   user = element(var.users, count.index)
 
-  policy_arn = aws_iam_policy.s3_bucket_policy.arn
+  policy_arn = aws_iam_policy.terragrunt_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "role_attachment" {
@@ -71,5 +71,5 @@ resource "aws_iam_role_policy_attachment" "role_attachment" {
 
   role       = element(var.roles, count.index)
 
-  policy_arn = aws_iam_policy.s3_bucket_policy.arn
+  policy_arn = aws_iam_policy.terragrunt_policy.arn
 }
