@@ -1,38 +1,46 @@
+data "aws_iam_policy_document" "secrets_readwrite" {
+  version = "2012-10-17"
+
+  statement {
+    sid = "SecretsReadWrite0"
+
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:RestoreSecret",
+      "secretsmanager:PutSecretValue",
+      "secretsmanager:DeleteSecret",
+      "secretsmanager:RotateSecret",
+      "secretsmanager:UpdateSecretVersionStage",
+      "secretsmanager:CancelRotateSecret",
+      "secretsmanager:ListSecretVersionIds",
+      "secretsmanager:UpdateSecret"
+    ]
+
+    resources = var.secrets
+  }
+
+  statement {
+    sid = "SecretsReadWrite1"
+
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetRandomPassword",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+}
+
 resource "aws_iam_policy" "secrets_readwrite_policy" {
   name   = var.policy_name
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "secretsmanager:GetResourcePolicy",
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:DescribeSecret",
-                "secretsmanager:RestoreSecret",
-                "secretsmanager:PutSecretValue",
-                "secretsmanager:DeleteSecret",
-                "secretsmanager:RotateSecret",
-                "secretsmanager:UpdateSecretVersionStage",
-                "secretsmanager:CancelRotateSecret",
-                "secretsmanager:ListSecretVersionIds",
-                "secretsmanager:UpdateSecret"
-            ],
-            "Resource": [
-              "${join(",\n", var.secrets)}"
-            ]
-        },
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",
-            "Action": "secretsmanager:GetRandomPassword",
-            "Resource": "*"
-        }
-    ]
-}
-EOF
+  policy = data.aws_iam_policy_document.secrets_readwrite.json
 }
 
 resource "aws_iam_group_policy_attachment" "group_attachment" {

@@ -2,7 +2,7 @@ data "aws_iam_policy_document" "secrets_readonly" {
   version = "2012-10-17"
 
   statement {
-    sid = "SecretsReadonly1"
+    sid = "SecretsReadonly0"
 
     effect = "Allow"
 
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "secrets_readonly" {
   }
 
   statement {
-    sid = "SecretsReadonly2"
+    sid = "SecretsReadonly1"
 
     effect = "Allow"
 
