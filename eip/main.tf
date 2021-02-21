@@ -1,7 +1,7 @@
 resource "aws_eip" "eip" {
-  vpc  = var.vpc
+  vpc = var.vpc
 
   tags = {
-    "Name": var.name
+    "Name" : var.name
   }
 }
