@@ -27,7 +27,7 @@ This modules provisions an Elastic IP address.
 
 | Name | Description |
 |------|-------------|
-| eip\_allocation\_id | n/a |
-| eip\_public\_ip | n/a |
+| allocation\_id | n/a |
+| public\_ip | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
