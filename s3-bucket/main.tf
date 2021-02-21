@@ -52,7 +52,7 @@ resource "aws_iam_user_policy_attachment" "user_attachment" {
 resource "aws_iam_role_policy_attachment" "role_attachment" {
   count = length(var.roles)
 
-  role       = element(var.roles, count.index)
+  role = element(var.roles, count.index)
 
   policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
