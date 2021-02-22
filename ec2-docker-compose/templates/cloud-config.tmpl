@@ -1,0 +1,42 @@
+#cloud-config
+users:
+  - name: ${username}
+    groups: ${groups}
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys: 
+%{ for key in ssh_keys ~}
+      - ${key}
+%{ endfor ~}
+
+packages: 
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+%{ for package in packages ~}
+  - ${package}
+%{ endfor ~}
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+%{ if swap_size > 0 ~}
+swap:
+  filename: ${swap_file}
+  size: ${swap_size}
+%{ endif ~}
+
+runcmd:
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers ${username}' /etc/ssh/sshd_config
+  - service ssh restart
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt update
+  - apt install -y --force-yes --fix-missing docker-ce docker-ce-cli containerd.io
+  - usermod -G docker ${username}
+  - curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
