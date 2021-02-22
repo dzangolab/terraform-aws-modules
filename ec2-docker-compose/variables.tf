@@ -50,7 +50,7 @@ variable "instance_type" {
 }
 
 variable "monitoring" {
-  default = false
+  default     = false
   description = "If true, the launched EC2 instance will have detailed monitoring enabled"
   type        = bool
 }

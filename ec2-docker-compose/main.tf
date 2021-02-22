@@ -26,7 +26,7 @@ resource "aws_instance" "instance" {
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  tags = merge({ "Name": join("-", [var.name, var.env]) }, var.tags)
+  tags = merge({ "Name" : join("-", [var.name, var.env]) }, var.tags)
 }
 
 resource "aws_eip_association" "elastic_ip_association" {
