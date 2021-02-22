@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  acl = "private"
+  acl    = "private"
   bucket = var.name
   lifecycle {
     prevent_destroy = true
