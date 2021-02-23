@@ -16,6 +16,16 @@ This modules provisions an Elastic IP address.
 |------|---------|
 | aws | ~> 3.27 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -29,5 +39,4 @@ This modules provisions an Elastic IP address.
 |------|-------------|
 | allocation\_id | n/a |
 | public\_ip | n/a |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

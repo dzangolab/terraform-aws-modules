@@ -19,6 +19,20 @@ This module provisions an EC2 instance with docker CE and docker-compose install
 | aws | ~> 3.27 |
 | local | ~> 1.4.0 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) |
+| [aws_eip_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) |
+| [aws_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) |
+| [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
+| [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -49,5 +63,4 @@ This module provisions an EC2 instance with docker CE and docker-compose install
 | Name | Description |
 |------|-------------|
 | instance\_ip | The instance's public ipv4 adress |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

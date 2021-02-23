@@ -19,6 +19,21 @@ Provisions  the resources required to create a terraform remote backend on AWS u
 | aws | ~> 3.27 |
 | template | ~> 2.1.2 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_dynamodb_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) |
+| [aws_iam_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group) |
+| [aws_iam_group_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
+| [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
+| [template_file](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -34,5 +49,4 @@ Provisions  the resources required to create a terraform remote backend on AWS u
 ## Outputs
 
 No output.
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
