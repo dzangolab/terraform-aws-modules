@@ -32,4 +32,9 @@ resource "aws_instance" "instance" {
 resource "aws_eip_association" "elastic_ip_association" {
   instance_id   = aws_instance.instance.id
   allocation_id = data.aws_eip.elastic_ip.id
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "sed -i -e '/^${self.public_ip} .*/d' ~/.ssh/known_hosts"
+  }
 }
