@@ -1,11 +1,6 @@
 //-------------------------------------------------------------------
 // Key pair
 //-------------------------------------------------------------------
-variable "key_name" {
-  description = "Name of the key pair"
-  type        = string
-}
-
 variable "key_path" {
   description = "SSH public key path"
   default     = "~/.ssh/id_rsa.pub"
@@ -22,6 +17,12 @@ variable "ami" {
   type        = string
 }
 
+variable "ansible_inventory" {
+  default = "templates/hosts.tmpl"
+  description = "Template for generating the ansible inventory"
+  type = string
+}
+
 variable "disable_api_termination" {
   default     = true
   description = "If true, enables EC2 Instance Termination Protection"
@@ -30,11 +31,6 @@ variable "disable_api_termination" {
 
 variable "eip_allocation_id" {
   description = "The allocation ID of the Elastic IP address"
-  type        = string
-}
-
-variable "env" {
-  description = "The environment in which the instance runs (eg staging, prod)"
   type        = string
 }
 

@@ -3,7 +3,7 @@ data "aws_eip" "elastic_ip" {
 }
 
 resource "aws_key_pair" "default" {
-  key_name   = var.key_name
+  key_name   = var.name
   public_key = file(var.key_path)
 }
 
@@ -26,7 +26,7 @@ resource "aws_instance" "instance" {
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  tags = merge({ "Name" : join("-", [var.name, var.env]) }, var.tags)
+  tags = merge({ "Name" : var.name }, var.tags)
 }
 
 resource "aws_eip_association" "elastic_ip_association" {
