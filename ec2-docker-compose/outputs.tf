@@ -6,9 +6,8 @@ output "instance_ip" {
 
 resource "local_file" "ansible_inventory" {
   content = templatefile(
-    "./templates/hosts.tmpl",
+    var.ansible_inventory,
     {
-      env       = var.env
       name      = var.name
       public_ip = data.aws_eip.elastic_ip.public_ip
       username  = var.username
