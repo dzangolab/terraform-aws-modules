@@ -11,6 +11,7 @@ resource "local_file" "ansible_inventory" {
       env       = var.env
       name      = var.name
       public_ip = data.aws_eip.elastic_ip.public_ip
+      username  = var.username
     }
   )
   filename = "hosts"
