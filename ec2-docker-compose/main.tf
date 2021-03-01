@@ -40,7 +40,7 @@ resource "aws_eip_association" "elastic_ip_association" {
 }
 
 resource "aws_volume_attachment" "ebs_volume_attachments" {
-  foreach = toset(var.ebs_volume_attachments)
+  foreach = var.ebs_volume_attachments
 
   device_name = each.device
   volume_id   = each.volume_id
