@@ -31,6 +31,7 @@ No Modules.
 | [aws_eip_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) |
 | [aws_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) |
 | [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
+| [aws_volume_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/volume_attachment) |
 | [local_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) |
 
 ## Inputs
@@ -41,6 +42,7 @@ No Modules.
 | ansible\_inventory | Template for generating the ansible inventory | `string` | `"templates/hosts.tmpl"` | no |
 | associate\_public\_ip\_address | If true, the EC2 instance will have associated public IP address | `bool` | `false` | no |
 | disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` | no |
+| ebs\_volume\_attachments | EBS volumes to attach | <pre>list(object({<br>    device    = string<br>    volume_id = string<br>  }))</pre> | n/a | yes |
 | eip\_allocation\_id | The allocation ID of the Elastic IP address | `string` | n/a | yes |
 | instance\_profile | The IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile. | `string` | n/a | yes |
 | instance\_type | Instance type | `string` | `"t2.micro"` | no |
