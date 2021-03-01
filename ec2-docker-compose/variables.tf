@@ -23,6 +23,12 @@ variable "ansible_inventory" {
   type = string
 }
 
+variable "associate_public_ip_address" {
+  default = false
+  description = "If true, the EC2 instance will have associated public IP address"
+  type = bool
+}
+
 variable "disable_api_termination" {
   default     = true
   description = "If true, enables EC2 Instance Termination Protection"

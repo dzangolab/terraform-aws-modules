@@ -9,7 +9,7 @@ resource "aws_key_pair" "default" {
 
 resource "aws_instance" "instance" {
   ami                         = var.ami
-  associate_public_ip_address = false
+  associate_public_ip_address = var.associate_public_ip_address
   disable_api_termination     = var.disable_api_termination
   iam_instance_profile        = var.instance_profile
   instance_type               = var.instance_type
