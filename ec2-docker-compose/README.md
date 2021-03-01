@@ -38,12 +38,12 @@ No Modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | ami | Ubuntu Server 20.04 LTS AMI (HVM), SSD Volume Type (64bit x86) | `string` | `"ami-09a6a7e49bd29554b"` | no |
+| ansible\_inventory | Template for generating the ansible inventory | `string` | `"templates/hosts.tmpl"` | no |
+| associate\_public\_ip\_address | If true, the EC2 instance will have associated public IP address | `bool` | `false` | no |
 | disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` | no |
 | eip\_allocation\_id | The allocation ID of the Elastic IP address | `string` | n/a | yes |
-| env | The environment in which the instance runs (eg staging, prod) | `string` | n/a | yes |
 | instance\_profile | The IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile. | `string` | n/a | yes |
 | instance\_type | Instance type | `string` | `"t2.micro"` | no |
-| key\_name | Name of the key pair | `string` | n/a | yes |
 | key\_path | SSH public key path | `string` | `"~/.ssh/id_rsa.pub"` | no |
 | monitoring | If true, the launched EC2 instance will have detailed monitoring enabled | `bool` | `false` | no |
 | name | The instance's name | `string` | n/a | yes |

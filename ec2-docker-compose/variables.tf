@@ -18,15 +18,15 @@ variable "ami" {
 }
 
 variable "ansible_inventory" {
-  default = "templates/hosts.tmpl"
+  default     = "templates/hosts.tmpl"
   description = "Template for generating the ansible inventory"
-  type = string
+  type        = string
 }
 
 variable "associate_public_ip_address" {
-  default = false
+  default     = false
   description = "If true, the EC2 instance will have associated public IP address"
-  type = bool
+  type        = bool
 }
 
 variable "disable_api_termination" {
