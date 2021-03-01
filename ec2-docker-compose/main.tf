@@ -39,10 +39,10 @@ resource "aws_eip_association" "elastic_ip_association" {
   }
 }
 
-resource "aws_volume_attachment" "ebs_volume_attachment" {
-  count = var.ebs_volume_attachment.count
+resource "aws_volume_attachment" "ebs_volume_attachments" {
+  count = var.ebs_volume_attachments.count
 
-  device_name = var.ebs_volume_attachment[count.index].device
-  volume_id   = var.ebs_volume_attachment[count.index].volume_id
+  device_name = var.ebs_volume_attachments[count.index].device
+  volume_id   = var.ebs_volume_attachments[count.index].volume_id
   instance_id = aws_instance.this.id
 }
