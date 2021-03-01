@@ -39,10 +39,8 @@ resource "aws_eip_association" "elastic_ip_association" {
   }
 }
 
-resource "aws_volume_attachment" "ebs_volume_attachments" {
-  foreach = var.ebs_volume_attachments
-
-  device_name = each.device
-  volume_id   = each.volume_id
+resource "aws_volume_attachment" "volume_attachment" {
+  device_name = "/dev/sdh"
+  volume_id   = var.volume_id
   instance_id = aws_instance.this.id
 }

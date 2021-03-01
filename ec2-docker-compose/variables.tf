@@ -35,14 +35,6 @@ variable "disable_api_termination" {
   type        = bool
 }
 
-variable "ebs_volume_attachments" {
-  description = "EBS volumes to attach"
-  type = list(object({
-    device    = string
-    volume_id = string
-  }))
-}
-
 variable "eip_allocation_id" {
   description = "The allocation ID of the Elastic IP address"
   type        = string
@@ -123,6 +115,11 @@ variable "user_groups" {
 
 variable "username" {
   description = "Username of the user to access the instance"
+  type        = string
+}
+
+variable "volume_id" {
+  description = "EBS volume to attach"
   type        = string
 }
 

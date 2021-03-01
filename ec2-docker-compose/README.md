@@ -42,7 +42,6 @@ No Modules.
 | ansible\_inventory | Template for generating the ansible inventory | `string` | `"templates/hosts.tmpl"` | no |
 | associate\_public\_ip\_address | If true, the EC2 instance will have associated public IP address | `bool` | `false` | no |
 | disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` | no |
-| ebs\_volume\_attachments | EBS volumes to attach | <pre>list(object({<br>    device    = string<br>    volume_id = string<br>  }))</pre> | n/a | yes |
 | eip\_allocation\_id | The allocation ID of the Elastic IP address | `string` | n/a | yes |
 | instance\_profile | The IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile. | `string` | n/a | yes |
 | instance\_type | Instance type | `string` | `"t2.micro"` | no |
@@ -58,6 +57,7 @@ No Modules.
 | user\_data | Relative path to user-data template file | `string` | `"./templates/cloud-config.tmpl"` | no |
 | user\_groups | List of groups to assign to user | `list(string)` | <pre>[<br>  "docker",<br>  "sudo"<br>]</pre> | no |
 | username | Username of the user to access the instance | `string` | n/a | yes |
+| volume\_id | EBS volume to attach | `string` | n/a | yes |
 | vpc\_security\_group\_ids | A list of security group IDs to associate with | `list(string)` | n/a | yes |
 
 ## Outputs
