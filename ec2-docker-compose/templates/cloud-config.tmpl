@@ -1,4 +1,6 @@
 #cloud-config
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
+
 users:
   - name: ${username}
     groups: ${groups}
@@ -40,3 +42,15 @@ runcmd:
   - usermod -G docker ${username}
   - curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   - chmod +x /usr/local/bin/docker-compose
+  - mkdir /carcombined
+
+mounts:
+  - [ /dev/xvdh, /carcombined, "auto", "defaults,nofail", "0", "0" ]
+mount_default_fields: [None, None, "auto", "defaults,nofail", "0", "2"]
+
+fs_setup:
+  - label: carcombined
+    filesystem: xfs
+    device: /dev/xvdh
+    partition: "auto"
+    overwrite: false
