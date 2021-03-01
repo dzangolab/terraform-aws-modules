@@ -7,7 +7,7 @@ resource "aws_key_pair" "default" {
   public_key = file(var.key_path)
 }
 
-resource "aws_instance" "instance" {
+resource "aws_instance" "this" {
   ami                         = var.ami
   associate_public_ip_address = var.associate_public_ip_address
   disable_api_termination     = var.disable_api_termination
@@ -30,11 +30,19 @@ resource "aws_instance" "instance" {
 }
 
 resource "aws_eip_association" "elastic_ip_association" {
-  instance_id   = aws_instance.instance.id
+  instance_id   = aws_instance.this.id
   allocation_id = data.aws_eip.elastic_ip.id
 
   provisioner "local-exec" {
     when    = destroy
     command = "sed -i -e '/^${self.public_ip} .*/d' ~/.ssh/known_hosts"
   }
+}
+
+resource "aws_volume_attachment" "ebs_volume_attachment" {
+  count = var.ebs_volume_attachment.count
+
+  device_name = var.ebs_volume_attachment[count.index].device
+  volume_id   = var.ebs_volume_attachment[count.index].volume_id
+  instance_id = aws_instance.this.id
 }

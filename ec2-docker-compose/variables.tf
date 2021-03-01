@@ -35,6 +35,12 @@ variable "disable_api_termination" {
   type        = bool
 }
 
+variable "ebs_volume_attachments" {
+  default = "[]"
+  description = "EBS volumes to attach"
+  type = list(map)
+}
+
 variable "eip_allocation_id" {
   description = "The allocation ID of the Elastic IP address"
   type        = string
