@@ -38,7 +38,10 @@ variable "disable_api_termination" {
 variable "ebs_volume_attachments" {
   default = "[]"
   description = "EBS volumes to attach"
-  type = list(map)
+  type = list(object({
+    device = string
+    volume_id = string
+  }))
 }
 
 variable "eip_allocation_id" {
