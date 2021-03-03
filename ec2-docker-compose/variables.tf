@@ -70,6 +70,17 @@ variable "packages" {
   type        = list(string)
 }
 
+variable "root_block_device" {
+  description = "Customize details about the root block device of the instance. See Block Devices below for details"
+  type        = list(map(string))
+  default     = [
+    {
+      volume_type = "gp2"
+      volume_size = 20
+    }
+  ]
+}
+
 variable "ssh_keys" {
   description = "A list of public SSH keys to add to the instance user"
   type        = list(string)
