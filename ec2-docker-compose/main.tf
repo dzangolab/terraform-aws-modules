@@ -59,6 +59,6 @@ resource "aws_volume_attachment" "volume_attachment" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "umount ${lookup(var.volume, 'mount_point')}"
+    command = join(" ", ["umount", lookup(var.volume, "mount_point")]
   }  
 }
