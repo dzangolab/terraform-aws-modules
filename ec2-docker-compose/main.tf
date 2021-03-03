@@ -57,7 +57,7 @@ resource "aws_volume_attachment" "volume_attachment" {
   volume_id   = lookup(var.volume, "volume_id")
   instance_id = aws_instance.this.id
 
-  provisioner "local-exec" {
+  provisioner "remote-exec" {
     when    = destroy
     command = "umount -d ${self.device_name}"
   }  
