@@ -40,19 +40,23 @@ resource "aws_instance" "this" {
   }
 
   tags = merge({ "Name" : var.name }, var.tags)
+
+  provisioner "remote-exec" {
+    connection {
+      host = self.public_ip
+      user = var.username
+    }
+    inline = [
+      "umount -d /dev/xvdh"
+    ]
+    when    = destroy
+  }  
 }
 
 resource "aws_volume_attachment" "volume_attachment" {
   device_name = lookup(var.volume, "device", "/dev/xvdh")
   volume_id   = lookup(var.volume, "volume_id")
   instance_id = aws_instance.this.id
-
-  provisioner "remote-exec" {
-    when    = destroy
-    inline = [
-      "umount -d ${self.device_name}"
-    ]
-  }  
 }
 
 resource "aws_eip_association" "elastic_ip_association" {
