@@ -53,7 +53,7 @@ resource "aws_eip_association" "elastic_ip_association" {
 }
 
 resource "aws_volume_attachment" "volume_attachment" {
-  device_name = lookup(var.volume, "device", "/dev/sdh")
+  device_name = lookup(var.volume, "device", "/dev/xvdh")
   volume_id   = lookup(var.volume, "volume_id")
   instance_id = aws_instance.this.id
 
