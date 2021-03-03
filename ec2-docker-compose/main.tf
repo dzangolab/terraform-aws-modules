@@ -42,16 +42,6 @@ resource "aws_instance" "this" {
   tags = merge({ "Name" : var.name }, var.tags)
 }
 
-resource "aws_eip_association" "elastic_ip_association" {
-  instance_id   = aws_instance.this.id
-  allocation_id = data.aws_eip.elastic_ip.id
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "sed -i -e '/^${self.public_ip} .*/d' ~/.ssh/known_hosts"
-  }
-}
-
 resource "aws_volume_attachment" "volume_attachment" {
   device_name = lookup(var.volume, "device", "/dev/xvdh")
   volume_id   = lookup(var.volume, "volume_id")
@@ -63,4 +53,14 @@ resource "aws_volume_attachment" "volume_attachment" {
       "umount -d ${self.device_name}"
     ]
   }  
+}
+
+resource "aws_eip_association" "elastic_ip_association" {
+  instance_id   = aws_instance.this.id
+  allocation_id = data.aws_eip.elastic_ip.id
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "sed -i -e '/^${self.public_ip} .*/d' ~/.ssh/known_hosts"
+  }
 }
