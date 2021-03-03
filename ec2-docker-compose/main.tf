@@ -55,4 +55,9 @@ resource "aws_volume_attachment" "volume_attachment" {
   device_name = "/dev/sdh"
   volume_id   = var.volume_id
   instance_id = aws_instance.this.id
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "umount /dev/sdh"
+  }  
 }
