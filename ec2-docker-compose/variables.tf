@@ -129,9 +129,9 @@ variable "username" {
   type        = string
 }
 
-variable "volume_id" {
+variable "volume" {
   description = "EBS volume to attach"
-  type        = string
+  type        = map(string)
 }
 
 variable "vpc_security_group_ids" {

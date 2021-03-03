@@ -18,11 +18,12 @@ resource "aws_instance" "this" {
   subnet_id                   = var.subnet_id
   user_data = templatefile(var.user_data, {
     groups    = join(",", var.user_groups)
+    mount_point = lookup(var.volume, "mount_point")
     packages  = var.packages
     ssh_keys  = var.ssh_keys
-    username  = var.username
     swap_file = var.swap_file
     swap_size = var.swap_size
+    username  = var.username
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 
@@ -52,12 +53,12 @@ resource "aws_eip_association" "elastic_ip_association" {
 }
 
 resource "aws_volume_attachment" "volume_attachment" {
-  device_name = "/dev/sdh"
-  volume_id   = var.volume_id
+  device_name = lookup(var.volume, "device", "/dev/sdh")
+  volume_id   = lookup(var.volume, "volume_id")
   instance_id = aws_instance.this.id
 
   provisioner "local-exec" {
     when    = destroy
-    command = "umount /dev/sdh"
+    command = "umount ${lookup(var.volume, 'mount_point')}"
   }  
 }
