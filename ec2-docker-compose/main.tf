@@ -40,17 +40,6 @@ resource "aws_instance" "this" {
   }
 
   tags = merge({ "Name" : var.name }, var.tags)
-
-  provisioner "remote-exec" {
-    connection {
-      host = self.public_ip
-      user = var.username
-    }
-    inline = [
-      "umount -d /dev/xvdh"
-    ]
-    when    = destroy
-  }  
 }
 
 resource "aws_volume_attachment" "volume_attachment" {
