@@ -59,6 +59,8 @@ resource "aws_volume_attachment" "volume_attachment" {
 
   provisioner "remote-exec" {
     when    = destroy
-    command = "umount -d ${self.device_name}"
+    inline = [
+      "umount -d ${self.device_name}"
+    ]
   }  
 }
