@@ -7,36 +7,36 @@ This modules provisions an Elastic IP address.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13.0 |
-| aws | ~> 3.27 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.27 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.27 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.60.0 |
 
 ## Modules
 
-No Modules.
+No modules.
 
 ## Resources
 
-| Name |
-|------|
-| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) |
+| Name | Type |
+|------|------|
+| [aws_eip.eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| name | Name of elastic ip address | `string` | `""` | no |
-| vpc | Boolean if the EIP is in a VPC or not | `bool` | `true` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of elastic ip address | `string` | `""` | no |
+| <a name="input_vpc"></a> [vpc](#input\_vpc) | Boolean if the EIP is in a VPC or not | `bool` | `true` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| allocation\_id | n/a |
-| public\_ip | n/a |
+| <a name="output_allocation_id"></a> [allocation\_id](#output\_allocation\_id) | n/a |
+| <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
