@@ -33,7 +33,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Name of instance profile and role | `string` | n/a | yes |
-| <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | ARNs of policies to attach to the role | `list(string)` | n/a | yes |
+| <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | ARNs of policies to attach to the role | `list(string)` | `[]` | no |
 
 ## Outputs
 
