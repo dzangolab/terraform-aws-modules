@@ -16,10 +16,10 @@ resource "aws_instance" "instance" {
   monitoring                  = var.monitoring
   subnet_id                   = var.subnet_id
   user_data = templatefile(var.user_data, {
-    groups    = join(",", var.user_groups)
-    packages  = var.packages
-    ssh_keys  = var.ssh_keys
-    username  = var.username
+    groups   = join(",", var.user_groups)
+    packages = var.packages
+    ssh_keys = var.ssh_keys
+    username = var.username
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 
