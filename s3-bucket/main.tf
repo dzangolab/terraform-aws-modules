@@ -10,7 +10,9 @@ data "aws_iam_policy_document" "s3_bucket" {
       "s3:ListBucket"
     ]
 
-    resources = var.bucket_arns
+    resources = [
+      "${aws_s3_bucket.this[0].arn}",
+    ]
   }
 
   statement {
@@ -24,7 +26,9 @@ data "aws_iam_policy_document" "s3_bucket" {
       "s3:PutObject"
     ]
 
-    resources = formatlist("%s/*", var.bucket_arns)
+    resources = [
+      "${aws_s3_bucket.this[0].arn}/*",
+    ]
   }
 }
 
