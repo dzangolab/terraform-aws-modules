@@ -1,10 +1,10 @@
 resource "aws_iam_instance_profile" "profile" {
-  name = "var.name"
+  name = var.name
   role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role" "role" {
-  name = "var.name"
+  name = var.name
   path = "/"
 
   assume_role_policy = <<EOF
