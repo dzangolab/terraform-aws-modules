@@ -4,6 +4,7 @@ variable "name" {
 }
 
 variable "policy_arns" {
+  default     = []
   description = "ARNs of policies to attach to the role"
   type        = list(string)
 }
