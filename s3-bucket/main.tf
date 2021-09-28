@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "s3_bucket" {
 
 resource "aws_s3_bucket" "this" {
   bucket = var.name
-  acl  = "private"
+  acl    = "private"
 }
 
 resource "aws_iam_policy" "bucket_policy" {

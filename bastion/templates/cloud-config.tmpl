@@ -1,0 +1,30 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+%{ for package in packages ~}
+  - ${package}
+%{ endfor ~}
+    
+users:
+  - name: ${username}
+    groups: ${groups}
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys: 
+%{ for key in ssh_keys ~}
+      - ${key}
+%{ endfor ~}
+
+runcmd:
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers ${username}' /etc/ssh/sshd_config
+  - service ssh restart

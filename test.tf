@@ -17,7 +17,7 @@ module "test_aws_docker_swarm" {
 module "test_s3_bucket" {
   source = "./s3-bucket"
 
-  policy_name = "test-s3-bucket"
+  name = "test-bucket"
 }
 
 module "test_secrets_ro_policy" {
