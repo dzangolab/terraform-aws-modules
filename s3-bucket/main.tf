@@ -2,7 +2,7 @@ data "aws_iam_policy_document" "s3_bucket" {
   version = "2012-10-17"
 
   statement {
-    sid = "dzangolab-terraform-aws-modules-s3-bucket-0"
+    sid = "DzangolabTerraformAwsModulesS3Bucket0"
 
     effect = "Allow"
 
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "s3_bucket" {
   }
 
   statement {
-    sid = "dzangolab-terraform-aws-modules-s3-bucket-1"
+    sid = "DzangolabTerraformAwsModulesS3Bucket1"
 
     effect = "Allow"
 
