@@ -53,7 +53,7 @@ resource "aws_instance" "bastion" {
     ssh_keys = var.ssh_keys
     username = var.username
   })
-  vpc_security_group_ids = aws_security_group.bastion.id
+  vpc_security_group_ids = [aws_security_group.bastion.id]
 
   tags = merge({ "Name" : var.name }, var.tags)
 }
