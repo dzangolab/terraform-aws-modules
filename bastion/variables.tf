@@ -18,7 +18,7 @@ variable "ami" {
 }
 
 variable "associate_public_ip_address" {
-  default     = false
+  default     = true
   description = "If true, the EC2 instance will have associated public IP address"
   type        = bool
 }
@@ -29,13 +29,8 @@ variable "disable_api_termination" {
   type        = bool
 }
 
-variable "eip_allocation_id" {
-  description = "The allocation ID of the Elastic IP address"
-  type        = string
-}
-
 variable "instance_type" {
-  default     = "t2.micro"
+  default     = "t4g.nano"
   description = "Instance type"
   type        = string
 }
@@ -94,7 +89,7 @@ variable "username" {
   type        = string
 }
 
-variable "vpc_security_group_ids" {
-  description = "A list of security group IDs to associate with"
-  type        = list(string)
+variable "vpc_id" {
+  description = "ID of bastion's VPC"
+  type        = string
 }
