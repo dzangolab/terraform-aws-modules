@@ -127,13 +127,13 @@ variable "vpc_security_group_ids" {
 // docker-compose settings
 //-------------------------------------------------------------------
 
-variable "docker-compose" {
+variable "docker_compose" {
   default     = false
   description = "If true, install docker-compose"
   type        = bool
 }
 
-variable "docker-compose-version" {
+variable "docker_compose_version" {
   default     = "1.29.2"
   description = "docker-compose version to install"
   type        = string
