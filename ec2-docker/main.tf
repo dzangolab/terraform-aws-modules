@@ -17,12 +17,14 @@ resource "aws_instance" "instance" {
   monitoring                  = var.monitoring
   subnet_id                   = var.subnet_id
   user_data = templatefile(var.user_data, {
-    groups    = join(",", var.user_groups)
-    packages  = var.packages
-    ssh_keys  = var.ssh_keys
-    username  = var.username
-    swap_file = var.swap_file
-    swap_size = var.swap_size
+    docker_compose         = var.docker_compose
+    docker_compose_version = var.docker_compose_version
+    groups                 = join(",", var.user_groups)
+    packages               = var.packages
+    ssh_keys               = var.ssh_keys
+    username               = var.username
+    swap_file              = var.swap_file
+    swap_size              = var.swap_size
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 
