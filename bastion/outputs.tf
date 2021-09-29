@@ -10,7 +10,7 @@ output "instance_state" {
 
 output "private_ip" {
   description = "The private IP address assigned to the instance. "
-  value       = aws_instance.bastion.public_ip
+  value       = aws_instance.bastion.private_ip
 }
 
 output "public_ip" {
