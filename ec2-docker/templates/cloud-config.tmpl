@@ -1,11 +1,4 @@
 #cloud-config
-# https://stackoverflow.com/questions/24418815/how-do-i-install-docker-using-cloud-init
-apt:
-  sources:
-    docker.list:
-      source: deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/$(uname -s) $RELEASE stable
-      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
@@ -13,10 +6,7 @@ package_reboot_if_required: true
 packages:
   - apt-transport-https
   - ca-certificates
-  - containerd.io
   - curl
-  - docker-ce
-  - docker-ce-cli
   - gnupg-agent
   - software-properties-common
 %{ for package in packages ~}
