@@ -118,6 +118,21 @@ variable "username" {
   type        = string
 }
 
+variable "volumes" {
+  default = [{
+    device = "none"
+    id   = "none"
+    name = ""
+    path = ""
+  }]
+  description = "List of block storage volumes to be attached to the droplet."
+  type = list(object({
+    id   = string
+    name = string
+    path = string
+  }))
+}
+
 variable "vpc_security_group_ids" {
   description = "A list of security group IDs to associate with"
   type        = list(string)

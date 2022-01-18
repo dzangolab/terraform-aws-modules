@@ -40,3 +40,10 @@ resource "aws_eip_association" "elastic_ip_association" {
     command = "sed -i -e '/^${self.public_ip} .*/d' ~/.ssh/known_hosts"
   }
 }
+
+resource "aws_volume_attachment" "ebs_attachment" {
+  count        = length(var.volumes)
+  device_name  = var.volumes[count.index].device
+  instance_id  = instance.id
+  volume_id    = var.volumes[count.index].id
+}
