@@ -44,6 +44,6 @@ resource "aws_eip_association" "elastic_ip_association" {
 resource "aws_volume_attachment" "ebs_attachment" {
   count        = length(var.volumes)
   device_name  = var.volumes[count.index].device
-  instance_id  = instance.id
+  instance_id  = aws_instance.instance.id
   volume_id    = var.volumes[count.index].id
 }
