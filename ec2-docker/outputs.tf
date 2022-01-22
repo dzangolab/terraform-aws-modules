@@ -27,3 +27,13 @@ resource "local_file" "ansible_inventory" {
   )
   filename = "hosts"
 }
+
+resource "local_file" "swarm_init" {
+  content = templatefile(
+    "templates/swarm_init.tmpl",
+    {
+      private_ip = data.aws_instance.instance.private_ip
+    }
+  )
+  filename = "hosts"
+}

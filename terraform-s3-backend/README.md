@@ -16,8 +16,8 @@ Provisions  the resources required to create a terraform remote backend on AWS u
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.27 |
-| <a name="provider_template"></a> [template](#provider\_template) | ~> 2.1.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
+| <a name="provider_template"></a> [template](#provider\_template) | 2.1.2 |
 
 ## Modules
 

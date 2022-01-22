@@ -16,7 +16,7 @@ This module provisions an EC2 instance as a bastion.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.27 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
 
 ## Modules
 

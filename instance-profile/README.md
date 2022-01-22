@@ -14,7 +14,7 @@ This modules provisions an instance profile.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.27 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
 
 ## Modules
 

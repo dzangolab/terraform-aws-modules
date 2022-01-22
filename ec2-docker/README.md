@@ -16,8 +16,8 @@ This module provisions an EC2 instance with docker CE and docker-compose install
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.27 |
-| <a name="provider_local"></a> [local](#provider\_local) | ~> 1.4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 1.4.0 |
 
 ## Modules
 
@@ -31,6 +31,7 @@ No modules.
 | [aws_instance.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_key_pair.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [local_file.ansible_inventory](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [local_file.swarm_init](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_eip.elastic_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) | data source |
 
 ## Inputs
