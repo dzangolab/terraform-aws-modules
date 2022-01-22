@@ -16,8 +16,8 @@ This module provisions an EC2 instance with docker CE and docker-compose install
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.60.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | 1.4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.27 |
+| <a name="provider_local"></a> [local](#provider\_local) | ~> 1.4.0 |
 
 ## Modules
 
@@ -41,8 +41,8 @@ No modules.
 | <a name="input_ansible_inventory"></a> [ansible\_inventory](#input\_ansible\_inventory) | Template for generating the ansible inventory | `string` | `"templates/hosts.tmpl"` | no |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | If true, the EC2 instance will have associated public IP address | `bool` | `false` | no |
 | <a name="input_disable_api_termination"></a> [disable\_api\_termination](#input\_disable\_api\_termination) | If true, enables EC2 Instance Termination Protection | `bool` | `true` | no |
-| <a name="input_docker-compose"></a> [docker-compose](#input\_docker-compose) | If true, install docker-compose | `bool` | `false` | no |
-| <a name="input_docker-compose-version"></a> [docker-compose-version](#input\_docker-compose-version) | docker-compose version to install | `string` | `"1.29.2"` | no |
+| <a name="input_docker_compose"></a> [docker\_compose](#input\_docker\_compose) | If true, install docker-compose | `bool` | `false` | no |
+| <a name="input_docker_compose_version"></a> [docker\_compose\_version](#input\_docker\_compose\_version) | docker-compose version to install | `string` | `"1.29.2"` | no |
 | <a name="input_eip_allocation_id"></a> [eip\_allocation\_id](#input\_eip\_allocation\_id) | The allocation ID of the Elastic IP address | `string` | n/a | yes |
 | <a name="input_instance_profile"></a> [instance\_profile](#input\_instance\_profile) | The IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile. | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type | `string` | `"t2.micro"` | no |
@@ -64,5 +64,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_instance_ip"></a> [instance\_ip](#output\_instance\_ip) | The instance's public ipv4 adress |
+| <a name="output_instance_ip"></a> [instance\_ip](#output\_instance\_ip) | The instance's public ipv4 adress -- DEPRECATED: Use `public_ip` instead. |
+| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | The instance's private ipv4 address |
+| <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | The instance's public ipv4 address |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
