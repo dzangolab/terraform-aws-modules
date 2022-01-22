@@ -35,5 +35,5 @@ resource "local_file" "swarm_init" {
       private_ip = aws_instance.instance.private_ip
     }
   )
-  filename = "hosts"
+  filename = "swarm_init.yml"
 }
