@@ -7,7 +7,7 @@ output "instance_ip" {
 output "private_ip" {
   description = "The instance's private ipv4 address"
 
-  value = [data.aws_instance.instance.private_ip]
+  value = [aws_instance.instance.private_ip]
 }
 
 output "public_ip" {
@@ -32,7 +32,7 @@ resource "local_file" "swarm_init" {
   content = templatefile(
     "templates/swarm_init.tmpl",
     {
-      private_ip = data.aws_instance.instance.private_ip
+      private_ip = aws_instance.instance.private_ip
     }
   )
   filename = "hosts"
