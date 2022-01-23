@@ -31,7 +31,7 @@ No modules.
 | [aws_instance.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_key_pair.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [local_file.ansible_inventory](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
-| [local_file.swarm_init](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [local_file.private_ip](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_eip.elastic_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) | data source |
 
 ## Inputs
@@ -51,6 +51,7 @@ No modules.
 | <a name="input_monitoring"></a> [monitoring](#input\_monitoring) | If true, the launched EC2 instance will have detailed monitoring enabled | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | The instance's name | `string` | n/a | yes |
 | <a name="input_packages"></a> [packages](#input\_packages) | Packages to install | `list(string)` | <pre>[<br>  "ntp"<br>]</pre> | no |
+| <a name="input_private_ip_template"></a> [private\_ip\_template](#input\_private\_ip\_template) | Template for generating the private ip group vars | `string` | `"templates/private_ip.tmpl"` | no |
 | <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | A list of public SSH keys to add to the instance user | `list(string)` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Id of subnet | `string` | n/a | yes |
 | <a name="input_swap_file"></a> [swap\_file](#input\_swap\_file) | Name of swap file | `string` | `"/swap"` | no |
