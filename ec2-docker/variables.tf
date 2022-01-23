@@ -137,7 +137,7 @@ variable "volumes" {
     device     = string
     fstype     = string
     id         = string
-    initialize = boolean
+    initialize = bool
     path       = string
   }))
 }
