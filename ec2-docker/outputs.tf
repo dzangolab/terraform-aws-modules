@@ -28,12 +28,12 @@ resource "local_file" "ansible_inventory" {
   filename = "hosts"
 }
 
-resource "local_file" "swarm_init" {
+resource "local_file" "private_ip" {
   content = templatefile(
-    "templates/swarm_init.tmpl",
+    var.private_ip_template,
     {
       private_ip = aws_instance.instance.private_ip
     }
   )
-  filename = "swarm_init.yml"
+  filename = "private_ip"
 }
