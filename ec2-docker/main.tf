@@ -25,6 +25,7 @@ resource "aws_instance" "instance" {
     username               = var.username
     swap_file              = var.swap_file
     swap_size              = var.swap_size
+    volumes                = var.volumes[0].id != "none" ? var.volumes : []
   })
   vpc_security_group_ids = var.vpc_security_group_ids
 

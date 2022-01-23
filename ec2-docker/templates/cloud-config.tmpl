@@ -44,6 +44,12 @@ swap:
   size: ${swap_size}
 %{ endif ~}
 
+bootcmd:
+%{ for volume in volumes ~}
+  - mkdir ${volume.path}
+  - mount -t xfs ${volume.device} ${volume.path}
+%{ endfor ~}
+
 runcmd:
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i -e '$aAllowUsers ${username}' /etc/ssh/sshd_config
