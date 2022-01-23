@@ -16,7 +16,7 @@ This module provisions an EC2 instance with docker CE and docker-compose install
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.60.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.73.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 1.4.0 |
 
 ## Modules
