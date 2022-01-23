@@ -48,7 +48,7 @@ bootcmd:
 %{ for volume in volumes ~}
   - mkdir ${volume.path}
   - chown ${username}:${username} ${volume.path}
-%{ if ${volume.initialize} ~}
+%{ if volume.initialize ~}
   - mkfs -t ${volume.fstype} ${volume.device}
 %{ endif ~}
   - mount ${volume.device} ${volume.path}
