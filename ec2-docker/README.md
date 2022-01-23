@@ -61,7 +61,7 @@ No modules.
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Relative path to user-data template file | `string` | `"./templates/cloud-config.tmpl"` | no |
 | <a name="input_user_groups"></a> [user\_groups](#input\_user\_groups) | List of groups to assign to user | `list(string)` | <pre>[<br>  "docker",<br>  "sudo"<br>]</pre> | no |
 | <a name="input_username"></a> [username](#input\_username) | Username of the user to access the instance | `string` | n/a | yes |
-| <a name="input_volumes"></a> [volumes](#input\_volumes) | List of block storage volumes to be attached to the droplet. | <pre>list(object({<br>    device = string<br>    id   = string<br>    name = string<br>    path = string<br>  }))</pre> | <pre>[<br>  {<br>    "device": "",<br>    "id": "none",<br>    "name": "",<br>    "path": ""<br>  }<br>]</pre> | no |
+| <a name="input_volumes"></a> [volumes](#input\_volumes) | List of block storage volumes to be attached to the droplet. | <pre>list(object({<br>    device = string<br>    fstype = string<br>    id     = string<br>    initialize = boolean<br>    path   = string<br>  }))</pre> | <pre>[<br>  {<br>    "device": "",<br>    "fstype": "",<br>    "id": "none",<br>    "initialize": false,<br>    "path": ""<br>  }<br>]</pre> | no |
 | <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | A list of security group IDs to associate with | `list(string)` | n/a | yes |
 
 ## Outputs
