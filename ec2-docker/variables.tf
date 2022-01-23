@@ -70,6 +70,12 @@ variable "packages" {
   type        = list(string)
 }
 
+variable "private_ip_template" {
+  default     = "templates/private_ip.tmpl"
+  description = "Template for generating the private ip group vars"
+  type        = string
+}
+
 variable "ssh_keys" {
   description = "A list of public SSH keys to add to the instance user"
   type        = list(string)
