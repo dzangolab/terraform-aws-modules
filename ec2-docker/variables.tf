@@ -126,16 +126,17 @@ variable "username" {
 
 variable "volumes" {
   default = [{
-    device = "none"
-    id   = "none"
-    name = ""
-    path = ""
+    device = ""
+    id     = "none"
+    name   = ""
+    path   = ""
   }]
   description = "List of block storage volumes to be attached to the droplet."
   type = list(object({
-    id   = string
-    name = string
-    path = string
+    device = string
+    id     = string
+    name   = string
+    path   = string
   }))
 }
 
