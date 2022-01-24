@@ -30,6 +30,7 @@ No modules.
 | [aws_eip_association.elastic_ip_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) | resource |
 | [aws_instance.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_key_pair.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_volume_attachment.ebs_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/volume_attachment) | resource |
 | [local_file.ansible_inventory](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [local_file.private_ip](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [aws_eip.elastic_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eip) | data source |
@@ -60,6 +61,7 @@ No modules.
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Relative path to user-data template file | `string` | `"./templates/cloud-config.tmpl"` | no |
 | <a name="input_user_groups"></a> [user\_groups](#input\_user\_groups) | List of groups to assign to user | `list(string)` | <pre>[<br>  "docker",<br>  "sudo"<br>]</pre> | no |
 | <a name="input_username"></a> [username](#input\_username) | Username of the user to access the instance | `string` | n/a | yes |
+| <a name="input_volumes"></a> [volumes](#input\_volumes) | List of block storage volumes to be attached to the droplet. | <pre>list(object({<br>    device     = string<br>    fstype     = string<br>    id         = string<br>    initialize = bool<br>    path       = string<br>  }))</pre> | <pre>[<br>  {<br>    "device": "",<br>    "fstype": "",<br>    "id": "none",<br>    "initialize": false,<br>    "path": ""<br>  }<br>]</pre> | no |
 | <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | A list of security group IDs to associate with | `list(string)` | n/a | yes |
 
 ## Outputs
