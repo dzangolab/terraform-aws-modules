@@ -53,6 +53,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | The instance's name | `string` | n/a | yes |
 | <a name="input_packages"></a> [packages](#input\_packages) | Packages to install | `list(string)` | <pre>[<br>  "ntp"<br>]</pre> | no |
 | <a name="input_private_ip_template"></a> [private\_ip\_template](#input\_private\_ip\_template) | Template for generating the private ip group vars | `string` | `"templates/private_ip.tmpl"` | no |
+| <a name="input_root_block_device"></a> [root\_block\_device](#input\_root\_block\_device) | Configuration block to customize details about the root block device of the instance. | <pre>object({<br>    delete_on_termination     = bool<br>    volume_size               = number<br>    volume_type               = string<br>  })</pre> | <pre>[<br>  {<br>    "delete_on_termination": true,<br>    "volume_size": 16,<br>    "volume_type": "gp2"<br>  }<br>]</pre> | no |
 | <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | A list of public SSH keys to add to the instance user | `list(string)` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Id of subnet | `string` | n/a | yes |
 | <a name="input_swap_file"></a> [swap\_file](#input\_swap\_file) | Name of swap file | `string` | `"/swap"` | no |
@@ -61,7 +62,7 @@ No modules.
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Relative path to user-data template file | `string` | `"./templates/cloud-config.tmpl"` | no |
 | <a name="input_user_groups"></a> [user\_groups](#input\_user\_groups) | List of groups to assign to user | `list(string)` | <pre>[<br>  "docker",<br>  "sudo"<br>]</pre> | no |
 | <a name="input_username"></a> [username](#input\_username) | Username of the user to access the instance | `string` | n/a | yes |
-| <a name="input_volumes"></a> [volumes](#input\_volumes) | List of block storage volumes to be attached to the droplet. | <pre>list(object({<br>    device     = string<br>    fstype     = string<br>    id         = string<br>    initialize = bool<br>    path       = string<br>  }))</pre> | <pre>[<br>  {<br>    "device": "",<br>    "fstype": "",<br>    "id": "none",<br>    "initialize": false,<br>    "path": ""<br>  }<br>]</pre> | no |
+| <a name="input_volumes"></a> [volumes](#input\_volumes) | List of block storage volumes to be attached to the instance. | <pre>list(object({<br>    device     = string<br>    fstype     = string<br>    id         = string<br>    initialize = bool<br>    path       = string<br>  }))</pre> | <pre>[<br>  {<br>    "device": "",<br>    "fstype": "",<br>    "id": "none",<br>    "initialize": false,<br>    "path": ""<br>  }<br>]</pre> | no |
 | <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | A list of security group IDs to associate with | `list(string)` | n/a | yes |
 
 ## Outputs

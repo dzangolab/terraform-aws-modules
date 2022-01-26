@@ -15,6 +15,7 @@ resource "aws_instance" "instance" {
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.default.id
   monitoring                  = var.monitoring
+  root_block_device           = var.root_block_device
   subnet_id                   = var.subnet_id
   user_data = templatefile(var.user_data, {
     docker_compose         = var.docker_compose
