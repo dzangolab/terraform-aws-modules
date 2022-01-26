@@ -77,11 +77,11 @@ variable "private_ip_template" {
 }
 
 variable "root_block_device" {
-  default = [{
+  default = {
     delete_on_termination = true
     volume_size           = 16
     volume_type           = "gp2"
-  }]
+  }
   description = "Configuration block to customize details about the root block device of the instance."
   type = object({
     delete_on_termination = bool
