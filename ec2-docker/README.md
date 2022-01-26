@@ -53,7 +53,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | The instance's name | `string` | n/a | yes |
 | <a name="input_packages"></a> [packages](#input\_packages) | Packages to install | `list(string)` | <pre>[<br>  "ntp"<br>]</pre> | no |
 | <a name="input_private_ip_template"></a> [private\_ip\_template](#input\_private\_ip\_template) | Template for generating the private ip group vars | `string` | `"templates/private_ip.tmpl"` | no |
-| <a name="input_root_block_device"></a> [root\_block\_device](#input\_root\_block\_device) | Configuration block to customize details about the root block device of the instance. | <pre>object({<br>    delete_on_termination     = bool<br>    volume_size               = number<br>    volume_type               = string<br>  })</pre> | <pre>[<br>  {<br>    "delete_on_termination": true,<br>    "volume_size": 16,<br>    "volume_type": "gp2"<br>  }<br>]</pre> | no |
+| <a name="input_root_block_device"></a> [root\_block\_device](#input\_root\_block\_device) | Configuration block to customize details about the root block device of the instance. | <pre>list(object({<br>    delete_on_termination = bool<br>    volume_size           = number<br>    volume_type           = string<br>  }))</pre> | <pre>[<br>  {<br>    "delete_on_termination": true,<br>    "volume_size": 16,<br>    "volume_type": "gp2"<br>  }<br>]</pre> | no |
 | <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | A list of public SSH keys to add to the instance user | `list(string)` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Id of subnet | `string` | n/a | yes |
 | <a name="input_swap_file"></a> [swap\_file](#input\_swap\_file) | Name of swap file | `string` | `"/swap"` | no |
