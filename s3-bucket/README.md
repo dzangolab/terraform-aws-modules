@@ -35,6 +35,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_acl"></a> [acl](#input\_acl) | The canned ACL to apply. Valid values are `private`, `public-read`, `public-read-write`, `aws-exec-read`, `authenticated-read`, `and log-delivery-write`. Defaults to `private`. | `string` | `"private"` | no |
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable. | `bool` | `"false"` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Groups who are allowed to manage the bucket | `list(string)` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the bucket to create | `string` | n/a | yes |
 | <a name="input_roles"></a> [roles](#input\_roles) | IAM roles who are allowed to manage the bucket | `list(string)` | `[]` | no |
