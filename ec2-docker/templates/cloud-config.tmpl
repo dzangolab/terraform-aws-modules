@@ -49,14 +49,14 @@ bootcmd:
   - mkdir ${volume.path}
   - chown ${username}:${username} ${volume.path}
 %{ if volume.initialize ~}
-  - mkfs -t ${volume.fstype} ${volume.device}
+  - mkfs -t ${volume.fstype} ${volume.mount_device}
 %{ endif ~}
-  - mount ${volume.device} ${volume.path}
+  - mount ${volume.mount_device} ${volume.path}
 %{ endfor ~}
 
 mounts:
 %{ for volume in volumes ~}
-  - [ ${volume.device}, ${volume.path}, ${volume.fstype}, "defaults, nofail", "0", "2"]
+  - [ ${volume.mount_device}, ${volume.path}, ${volume.fstype}, "defaults, nofail", "0", "2"]
 %{ endfor ~}
 
 runcmd:

@@ -144,6 +144,7 @@ variable "volumes" {
     fstype     = ""
     id         = "none"
     initialize = false
+    mount_device = null
     path       = ""
   }]
   description = "List of block storage volumes to be attached to the instance."
@@ -152,6 +153,7 @@ variable "volumes" {
     fstype     = string
     id         = string
     initialize = bool
+    mount_device = string
     path       = string
   }))
 }
