@@ -76,6 +76,20 @@ variable "private_ip_template" {
   type        = string
 }
 
+variable "root_block_device" {
+  default = [{
+    delete_on_termination = true
+    volume_size           = 16
+    volume_type           = "gp2"
+  }]
+  description = "Configuration block to customize details about the root block device of the instance."
+  type = list(object({
+    delete_on_termination = bool
+    volume_size           = number
+    volume_type           = string
+  }))
+}
+
 variable "ssh_keys" {
   description = "A list of public SSH keys to add to the instance user"
   type        = list(string)
@@ -130,14 +144,16 @@ variable "volumes" {
     fstype     = ""
     id         = "none"
     initialize = false
+    mount_device = null
     path       = ""
   }]
-  description = "List of block storage volumes to be attached to the droplet."
+  description = "List of block storage volumes to be attached to the instance."
   type = list(object({
     device     = string
     fstype     = string
     id         = string
     initialize = bool
+    mount_device = string
     path       = string
   }))
 }
