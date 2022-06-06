@@ -33,9 +33,13 @@ data "aws_iam_policy_document" "s3_bucket" {
 }
 
 resource "aws_s3_bucket" "this" {
-  acl           = var.acl
   bucket        = var.name
   force_destroy = var.force_destroy
+}
+
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.this.id
+  acl    = var.acl
 }
 
 resource "aws_iam_policy" "bucket_policy" {
